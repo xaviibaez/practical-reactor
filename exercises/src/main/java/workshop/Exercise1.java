@@ -4,9 +4,8 @@ import java.util.concurrent.CompletableFuture;
 
 import static workshop.StreamSources.*;
 
-public class Exercise1 implements Runnable {
+public class Exercise1 {
 
-    @Override
     public void run() {
         //Return a computation result using completable future, see, it is blocking!
         completableFuture();
@@ -85,6 +84,7 @@ public class Exercise1 implements Runnable {
     }
 
     public void printAllUsersNamesThatHaveIds() {
+        //Option 1:
         userStream()
                 .filter(x ->
                         intNumbersStream()
@@ -92,5 +92,14 @@ public class Exercise1 implements Runnable {
                                 .contains(x.getId())
                 )
                 .forEach(x -> System.out.println(x.getFirstName()));
+
+        //Option 2:
+        /*
+        StreamSources.intNumbersStream()
+                .parallel()
+                .flatMap((id -> StreamSources.userStream().filter(user -> user.getId() == id)))
+                .map(User::getFirstName)
+                .forEach(System.out::println);
+        */
     }
 }

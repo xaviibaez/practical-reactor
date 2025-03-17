@@ -11,11 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Exercise1Test {
 
     @Test
-    void main() {
-        exercise1.run();
-    }
-
-    @Test
     void it_should_print_10_numbers_stream() {
         ByteArrayOutputStream outContent = getByteArrayOutputStream();
 
@@ -71,12 +66,12 @@ class Exercise1Test {
 
         exercise1.printAllUsersNames();
         String expectedOutput =
-        "Lionel\n" +
-        "Cristiano\n" +
-        "Diego\n" +
-        "Zinedine\n" +
-        "Jürgen\n" +
-        "Gareth\n";
+                "Lionel\n" +
+                        "Cristiano\n" +
+                        "Diego\n" +
+                        "Zinedine\n" +
+                        "Jürgen\n" +
+                        "Gareth\n";
 
         assertEquals(expectedOutput, outContent.toString());
     }
