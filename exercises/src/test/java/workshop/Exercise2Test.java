@@ -1,5 +1,6 @@
 package workshop;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +20,6 @@ class Exercise2Test {
         Thread.sleep(11000);
 
         assertEquals("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n", outContent.toString());
-
-        System.setOut(System.out);
     }
 
     @Test
@@ -32,8 +31,6 @@ class Exercise2Test {
         Thread.sleep(7000);
 
         assertEquals("Name: Lionel Messi ID: 1\nName: Cristiano Ronaldo ID: 2\nName: Diego Maradona ID: 2\nName: Zinedine Zidane ID: 4\nName: Jürgen Klinsmann ID: 5\nName: Gareth Bale ID: 6\n", outContent.toString());
-
-        System.setOut(System.out);
     }
 
     private ByteArrayOutputStream getByteArrayOutputStream() {
@@ -42,10 +39,16 @@ class Exercise2Test {
         return outContent;
     }
 
+    Exercise2 exercise2 = new Exercise2();
+
     @BeforeEach
     void setUp() {
         System.setOut(System.out);
     }
 
-    Exercise2 exercise2 = new Exercise2();
+    @AfterEach
+    void tearDown() {
+        System.setOut(System.out);
+    }
+
 }
