@@ -6,7 +6,7 @@
 
   <groupId>com.github.schananas</groupId>
   <artifactId>practical-reactor</artifactId>
-  <version>2.5</version>
+  <version>2.6</version>
 
   <name>Practical Reactor workshop</name>
   <packaging>pom</packaging>
