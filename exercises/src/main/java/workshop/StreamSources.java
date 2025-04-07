@@ -10,20 +10,20 @@ import java.util.stream.Stream;
  */
 public class StreamSources {
 
-    public static Stream<String> stringNumbersStream() {
+    public Stream<String> stringNumbersStream() {
         return Stream.of("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten");
     }
 
-    public static Stream<Integer> intNumbersStream() {
+    public Stream<Integer> intNumbersStream() {
         return Stream.iterate(0, i -> i + 2)
                 .limit(10);
     }
 
-    public static Stream<Integer> intNoNumbersStream() {
+    public Stream<Integer> intNoNumbersStream() {
         return Stream.of(0);
     }
 
-    public static Stream<User> userStream() {
+    public Stream<User> userStream() {
         return Stream.of(
                 new User(1, "Lionel", "Messi"),
                 new User(2, "Cristiano", "Ronaldo"),
