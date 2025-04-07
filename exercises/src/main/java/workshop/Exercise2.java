@@ -2,9 +2,6 @@ package workshop;
 
 import java.io.IOException;
 
-import static workshop.ReactiveSources.intNumbersFlux;
-import static workshop.ReactiveSources.userFlux;
-
 public class Exercise2 {
 
     public void run() throws IOException {
@@ -24,11 +21,12 @@ public class Exercise2 {
     }
 
     public void printUserFlux() {
-        userFlux().subscribe(x -> System.out.println("Name: " + x.getFirstName() + " " + x.getLastName() + " ID: " + x.getId()));
+        reactiveSources.userFlux().subscribe(x -> System.out.println("Name: " + x.getFirstName() + " " + x.getLastName() + " ID: " + x.getId()));
     }
 
     public void printNumberFlux() {
-        intNumbersFlux().subscribe(System.out::println);
+        reactiveSources.intNumbersFlux().subscribe(System.out::println);
     }
 
+    ReactiveSources reactiveSources = new ReactiveSources();
 }

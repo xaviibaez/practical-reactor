@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static workshop.ReactiveSources.intNumberMono;
-
 public class Exercise4 {
 
     public void run() throws IOException {
@@ -25,12 +23,14 @@ public class Exercise4 {
     }
 
     public void printIntNumberMono() {
-        intNumberMono().subscribe(System.out::println);
+        reactiveSources.intNumberMono().subscribe(System.out::println);
     }
 
     public List<Integer> getValueFromMono() {
         List<Integer> l = new ArrayList<>();
-        intNumberMono().map(l::add).subscribe();
+        reactiveSources.intNumberMono().map(l::add).subscribe();
         return l;
     }
+
+    ReactiveSources reactiveSources = new ReactiveSources();
 }

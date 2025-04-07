@@ -2,8 +2,6 @@ package workshop;
 
 import java.util.concurrent.CompletableFuture;
 
-import static workshop.StreamSources.*;
-
 public class Exercise1 {
 
     public void run() {
@@ -46,17 +44,17 @@ public class Exercise1 {
     }
 
     public void printNumbersStream() {
-        intNumbersStream().forEach(System.out::println);
+        streamSources.intNumbersStream().forEach(System.out::println);
     }
 
     public void printNumbersLessThan5Stream() {
-        intNumbersStream()
+        streamSources.intNumbersStream()
                 .filter(x -> x < 5)
                 .forEach(System.out::println);
     }
 
     public void printSecondAndThridNumbersGreaterThan5Stream() {
-        intNumbersStream()
+        streamSources.intNumbersStream()
                 .filter(x -> x > 5)
                 .skip(1)
                 .limit(2)
@@ -64,14 +62,14 @@ public class Exercise1 {
     }
 
     public void printFirstNumberGreaterThan5Stream() {
-        intNumbersStream()
+        streamSources.intNumbersStream()
                 .filter(x -> x > 5)
                 .limit(1)
                 .forEach(System.out::println);
     }
 
     public void printFirstNumberGreaterThan5StreamWithElse() {
-        int result = intNoNumbersStream()
+        int result = streamSources.intNoNumbersStream()
                 .filter(x -> x > 5)
                 .findFirst()
                 .orElse(-1);
@@ -79,15 +77,15 @@ public class Exercise1 {
     }
 
     public void printAllUsersNames() {
-        userStream()
+        streamSources.userStream()
                 .forEach(x -> System.out.println(x.getFirstName()));
     }
 
     public void printAllUsersNamesThatHaveIds() {
         //Option 1:
-        userStream()
+        streamSources.userStream()
                 .filter(x ->
-                        intNumbersStream()
+                        streamSources.intNumbersStream()
                                 .toList()
                                 .contains(x.getId())
                 )
@@ -95,11 +93,13 @@ public class Exercise1 {
 
         //Option 2:
         /*
-        StreamSources.intNumbersStream()
+        streamSources.intNumbersStream()
                 .parallel()
                 .flatMap((id -> StreamSources.userStream().filter(user -> user.getId() == id)))
                 .map(User::getFirstName)
                 .forEach(System.out::println);
         */
     }
+
+    StreamSources streamSources = new StreamSources();
 }

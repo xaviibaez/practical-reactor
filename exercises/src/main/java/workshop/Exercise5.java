@@ -4,18 +4,33 @@ import java.io.IOException;
 
 public class Exercise5 {
 
-    public static void main(String[] args) throws IOException {
+    public void run() throws IOException {
 
         // Use ReactiveSources.intNumberMono() and ReactiveSources.userMono()
 
         // Subscribe to a flux using the error and completion hooks
-        // TODO: Write code here
+
+        subscribeUsingSubscribe();
 
         // Subscribe to a flux using an implementation of BaseSubscriber
-        // TODO: Write code here
+        reactiveSources.intNumbersFlux().subscribe(new MySubscriber<>());
 
         System.out.println("Press a key to end");
         System.in.read();
     }
 
+    public void subscribeUsingSubscribe() {
+        reactiveSources.intNumberMono().subscribe(
+                x -> System.out.println("Received: " + x),
+                e -> System.out.println("Error: " + e),
+                () -> System.out.println("Done")
+        );
+        reactiveSources.intNumbersFlux().subscribe(
+                x -> System.out.println("Received: " + x),
+                e -> System.out.println("Error: " + e),
+                () -> System.out.println("Done")
+        );
+    }
+
+    ReactiveSources reactiveSources = new ReactiveSources();
 }

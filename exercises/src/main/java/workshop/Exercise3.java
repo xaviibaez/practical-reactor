@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static workshop.ReactiveSources.intNumbersFlux;
-
 public class Exercise3 {
 
     public void run() throws IOException {
@@ -37,9 +35,10 @@ public class Exercise3 {
         //        });
 
         //Option 3 blocking:
-        List<Integer> numbers = intNumbersFlux().toStream().toList();
+        List<Integer> numbers = reactiveSources.intNumbersFlux().toStream().toList();
         System.out.println("List: " + numbers);
         System.out.println("Size: " + numbers.size());
     }
 
+    ReactiveSources reactiveSources = new ReactiveSources();
 }
