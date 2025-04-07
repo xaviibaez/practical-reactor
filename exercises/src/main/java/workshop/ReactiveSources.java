@@ -13,18 +13,18 @@ import java.time.Duration;
  */
 public class ReactiveSources {
 
-    public static Flux<String> stringNumbersFlux() {
+    public Flux<String> stringNumbersFlux() {
         return Flux.just("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
                 .delayElements(Duration.ofSeconds(1));
     }
 
-    public static Flux<Integer> intNumbersFlux() {
+    public Flux<Integer> intNumbersFlux() {
         return Flux
                 .range(1, 10)
                 .delayElements(Duration.ofSeconds(1));
     }
 
-    public static Flux<Integer> intNumbersFluxWithException() {
+    public Flux<Integer> intNumbersFluxWithException() {
         return Flux
                 .range(1, 10)
                 .delayElements(Duration.ofSeconds(1))
@@ -34,12 +34,12 @@ public class ReactiveSources {
                 });
     }
 
-    public static Mono<Integer> intNumberMono() {
+    public Mono<Integer> intNumberMono() {
         return Mono.just(42)
                 .delayElement(Duration.ofSeconds(1));
     }
 
-    public static Flux<User> userFlux() {
+    public Flux<User> userFlux() {
         return Flux.just(
                 new User(1, "Lionel", "Messi"),
                 new User(2, "Cristiano", "Ronaldo"),
@@ -50,22 +50,22 @@ public class ReactiveSources {
         ).delayElements(Duration.ofSeconds(1));
     }
 
-    public static Mono<User> userMono() {
+    public Mono<User> userMono() {
         return Mono.just(
                 new User(1, "Lionel", "Messi")
         ).delayElement(Duration.ofSeconds(1));
 
     }
 
-    public static Flux<String> unresponsiveFlux() {
+    public Flux<String> unresponsiveFlux() {
         return Flux.never();
     }
 
-    public static Mono<String> unresponsiveMono() {
+    public Mono<String> unresponsiveMono() {
         return Mono.never();
     }
 
-    public static Flux<Integer> intNumbersFluxWithRepeat() {
+    public Flux<Integer> intNumbersFluxWithRepeat() {
         return Flux
                 .just(1, 2, 1, 1, 3, 2, 4, 5, 1)
                 .delayElements(Duration.ofSeconds(1));
