@@ -1,7 +1,8 @@
-package workshop;
+package workshop.exercises;
+
+import workshop.ReactiveSources;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Exercise3 {

@@ -1,6 +1,7 @@
-package workshop;
+package workshop.exercises;
 
 import reactor.core.publisher.Flux;
+import workshop.ReactiveSources;
 
 import java.io.IOException;
 

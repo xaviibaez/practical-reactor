@@ -1,4 +1,7 @@
-package workshop;
+package workshop.exercises;
+
+import workshop.MySubscriber;
+import workshop.ReactiveSources;
 
 import java.io.IOException;
 

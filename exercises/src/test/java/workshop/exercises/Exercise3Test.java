@@ -1,4 +1,4 @@
-package workshop;
+package workshop.exercises;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

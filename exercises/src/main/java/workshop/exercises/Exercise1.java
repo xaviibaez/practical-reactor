@@ -1,4 +1,6 @@
-package workshop;
+package workshop.exercises;
+
+import workshop.StreamSources;
 
 import java.util.concurrent.CompletableFuture;
 
