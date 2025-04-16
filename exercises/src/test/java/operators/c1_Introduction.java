@@ -1,3 +1,5 @@
+package operators;
+
 import org.junit.jupiter.api.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -9,7 +11,6 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -127,12 +128,28 @@ public class c1_Introduction extends IntroductionBase {
 
         Flux<String> serviceResult = fortuneTop5();
 
+        //Option 1:
         serviceResult
                 .doOnNext(companyList::add)
                 .subscribe()
         //todo: add an operator here, don't use any blocking operator!
         ;
 
+        //Option 2:
+        /*
+        serviceResult
+                .publishOn(Schedulers.boundedElastic())
+                .doOnNext(companyList::add)
+                .map(x -> {
+                    for (int i = 0; i < 1000; i++) {
+                        System.out.println("Doing some work");
+                    }
+                    return x;
+                })
+                .subscribe()
+        //todo: add an operator here, don't use any blocking operator!
+        ;
+        */
         Thread.sleep(1000); //bonus: can you explain why this line is needed?
         //Because of blocking 1s the main thread we need to make serviceResult subscribe to his own thread making the add() method runnable while this 1s
 

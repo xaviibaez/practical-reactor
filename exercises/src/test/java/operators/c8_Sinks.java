@@ -1,3 +1,5 @@
+package operators;
+
 import org.junit.jupiter.api.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,10 +36,12 @@ public class c8_Sinks extends SinksBase {
     @Test
     public void single_shooter() {
         //todo: feel free to change code as you need
-        Mono<Boolean> operationCompleted = null;
-        submitOperation(() -> {
+        Sinks.One<Boolean> sink = Sinks.one();
+        Mono<Boolean> operationCompleted = sink.asMono();
 
+        submitOperation(() -> {
             doSomeWork(); //don't change this line
+            sink.tryEmitValue(true);
         });
 
         //don't change code below
@@ -55,10 +59,13 @@ public class c8_Sinks extends SinksBase {
     @Test
     public void single_subscriber() {
         //todo: feel free to change code as you need
-        Flux<Integer> measurements = null;
-        submitOperation(() -> {
+        Sinks.Many<Integer> replaySink = Sinks.many().replay().all();
+        Flux<Integer> measurements = replaySink.asFlux();
 
+        submitOperation(() -> {
             List<Integer> measures_readings = get_measures_readings(); //don't change this line
+            measures_readings.forEach(replaySink::tryEmitNext);
+            replaySink.tryEmitComplete();
         });
 
         //don't change code below

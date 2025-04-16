@@ -28,20 +28,32 @@ No books or paid courses needed, all chapters and exercises are linked to partic
 
 ### Table of contents
 
-* [Introduction](exercises/src/test/java/c1_Introduction.java)
-* [Transforming sequence](exercises/src/test/java/c2_TransformingSequence.java)
-* [Filtering sequence](exercises/src/test/java/c3_FilteringSequence.java)
-* [Lifecycle hooks](exercises/src/test/java/c4_LifecycleHooks.java)
-* [Creating sequence](exercises/src/test/java/c5_CreatingSequence.java)
-* [Combining publishers](exercises/src/test/java/c6_CombiningPublishers.java)
-* [Error handling](exercises/src/test/java/c7_ErrorHandling.java)
-* [Sinks](exercises/src/test/java/c8_Sinks.java)
-* [Execution control](exercises/src/test/java/c9_ExecutionControl.java)
-* [Backpressure](exercises/src/test/java/c10_Backpressure.java)
-* [Batching](exercises/src/test/java/c11_Batching.java)
-* [Broadcasting](exercises/src/test/java/c12_Broadcasting.java)
-* [Context](exercises/src/test/java/c13_Context.java)
+#### Operator exercises
 
+* [Introduction](exercises/src/test/java/operators/c1_Introduction.java)
+* [Transforming sequence](exercises/src/test/java/operators/c2_TransformingSequence.java)
+* [Filtering sequence](exercises/src/test/java/operators/c3_FilteringSequence.java)
+* [Lifecycle hooks](exercises/src/test/java/operators/c4_LifecycleHooks.java)
+* [Creating sequence](exercises/src/test/java/operators/c5_CreatingSequence.java)
+* [Combining publishers](exercises/src/test/java/operators/c6_CombiningPublishers.java)
+* [Error handling](exercises/src/test/java/operators/c7_ErrorHandling.java)
+* [Sinks](exercises/src/test/java/operators/c8_Sinks.java)
+* [Execution control](exercises/src/test/java/operators/c9_ExecutionControl.java)
+* [Backpressure](exercises/src/test/java/operators/c10_Backpressure.java)
+* [Batching](exercises/src/test/java/operators/c11_Batching.java)
+* [Broadcasting](exercises/src/test/java/operators/c12_Broadcasting.java)
+* [Context](exercises/src/test/java/operators/c13_Context.java)
+
+#### Workshop exercises
+* [Completable future](exercises/src/test/java/workshop/exercises/Exercise1Test.java)
+* [Subscribing](exercises/src/test/java/workshop/exercises/Exercise2Test.java)
+* [Blocking](exercises/src/test/java/workshop/exercises/Exercise3Test.java)
+* [Interacting wih operators](exercises/src/test/java/workshop/exercises/Exercise4Test.java)
+* [Completion operators](exercises/src/test/java/workshop/exercises/Exercise5Test.java)
+* [Workshop](exercises/src/test/java/workshop/exercises/Exercise6Test.java)
+* [Workshop](exercises/src/test/java/workshop/exercises/Exercise7Test.java)
+* [Workshop](exercises/src/test/java/workshop/exercises/Exercise8Test.java)
+* [Workshop](exercises/src/test/java/workshop/exercises/Exercise9Test.java)
 
 ## How to run?
 
