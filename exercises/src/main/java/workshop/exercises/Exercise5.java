@@ -13,26 +13,35 @@ public class Exercise5 {
 
         // Subscribe to a flux using the error and completion hooks
 
-        subscribeUsingSubscribe();
+        subscribeUsingSubscribeMono();
+        subscribeUsingSubscribeFlux();
 
         // Subscribe to a flux using an implementation of BaseSubscriber
-        reactiveSources.intNumbersFlux().subscribe(new MySubscriber<>());
+        subscribeUsingABaseSubscriberImplementation();
 
         System.out.println("Press a key to end");
         System.in.read();
     }
 
-    public void subscribeUsingSubscribe() {
+
+    public void subscribeUsingSubscribeMono() {
         reactiveSources.intNumberMono().subscribe(
                 x -> System.out.println("Received: " + x),
                 e -> System.out.println("Error: " + e),
                 () -> System.out.println("Done")
         );
+    }
+
+    public void subscribeUsingSubscribeFlux() {
         reactiveSources.intNumbersFlux().subscribe(
                 x -> System.out.println("Received: " + x),
                 e -> System.out.println("Error: " + e),
                 () -> System.out.println("Done")
         );
+    }
+
+    public void subscribeUsingABaseSubscriberImplementation() {
+        reactiveSources.intNumbersFlux().subscribe(new MySubscriber<>());
     }
 
     ReactiveSources reactiveSources = new ReactiveSources();
