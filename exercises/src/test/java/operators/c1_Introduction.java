@@ -1,6 +1,6 @@
 package operators;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -91,7 +91,7 @@ public class c1_Introduction extends IntroductionBase {
     public void multi_result_service() {
         Flux<String> serviceResult = multiResultService();
 
-        String result = serviceResult.blockFirst(); //todo: change this line only
+        String result = serviceResult.log().blockFirst(); //todo: change this line only
 
         assertEquals("valid result", result);
     }
@@ -134,6 +134,11 @@ public class c1_Introduction extends IntroductionBase {
                 .subscribe()
         //todo: add an operator here, don't use any blocking operator!
         ;
+
+        /*
+         * Why the subscribe() method is needed?
+         * Because it triggers the subscription to the Flux, allowing it to start emitting items.
+         */
 
         //Option 2:
         /*

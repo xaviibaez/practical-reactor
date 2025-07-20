@@ -30,6 +30,10 @@ public class CombiningPublishersBase {
         return Mono.fromSupplier(() -> user + "@gmail.com");
     }
 
+    public String getSyncUserEmail(String user) {
+        return "@gmail.com";
+    }
+
     public Flux<Mono<Void>> taskExecutor() {
         return Flux.range(1, 10)
                    //.delayElements(Duration.ofMillis(250))

@@ -43,16 +43,26 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         //todo: feel free to change code as you need
         Mono<String> currentUserEmail = null;
+        Mono<String> currentUserEmail2 = null;
+
         Mono<String> currentUserMono = getCurrentUser();
         getUserEmail(null);
 
         currentUserEmail = currentUserMono
                 .flatMap(this::getUserEmail);
 
+        currentUserEmail2 = currentUserMono
+                .map(this::getSyncUserEmail);
+        currentUserEmail2.subscribe();
+
         //don't change below this line
         StepVerifier.create(currentUserEmail)
                     .expectNext("user123@gmail.com")
                     .verifyComplete();
+
+        StepVerifier.create(currentUserEmail2)
+                .expectNext("@gmail.com")
+                .verifyComplete();
     }
 
     /**
@@ -367,7 +377,7 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
      */
 
     //only read from sourceRef
-    AtomicReference<String> sourceRef = new AtomicReference<>("X");
+    AtomicReference<String> sourceRef = new AtomicReference<>();
 
     //todo: implement this method based on instructions
     public Mono<String> chooseSource() {

@@ -1,6 +1,7 @@
 package operators;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -13,14 +14,14 @@ import java.util.function.Function;
 
 /**
  * It's time introduce some resiliency by recovering from unexpected events!
- *
+ * <p>
  * Read first:
- *
+ * <p>
  * https://projectreactor.io/docs/core/release/reference/#which.errors
  * https://projectreactor.io/docs/core/release/reference/#error.handling
- *
+ * <p>
  * Useful documentation:
- *
+ * <p>
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -41,13 +42,12 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                 //todo: do your changes here
                 .timeout(Duration.ofSeconds(3))
                 //todo: & here
-                .doOnError(errorRef::set)
-                ;
+                .doOnError(errorRef::set);
 
         StepVerifier.create(heartBeat)
-                    .expectNextCount(3)
-                    .expectError(TimeoutException.class)
-                    .verify();
+                .expectNextCount(3)
+                .expectError(TimeoutException.class)
+                .verify();
 
         Assertions.assertTrue(errorRef.get() instanceof TimeoutException);
     }
@@ -64,9 +64,9 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                 .onErrorMap(SecurityException::new);
 
         StepVerifier.create(currentUser)
-                    .expectErrorMatches(e -> e instanceof SecurityException &&
-                            e.getCause().getMessage().equals("No active session, user not found!"))
-                    .verify();
+                .expectErrorMatches(e -> e instanceof SecurityException &&
+                        e.getCause().getMessage().equals("No active session, user not found!"))
+                .verify();
     }
 
     /**
@@ -76,13 +76,12 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     @Test
     public void under_the_rug() {
         Flux<String> messages = messageNode()
-        //todo: change this line only
-                .onErrorResume(e -> Flux.empty())
-        ;
+                //todo: change this line only
+                .onErrorResume(e -> Flux.empty());
 
         StepVerifier.create(messages)
-                    .expectNext("0x1", "0x2")
-                    .verifyComplete();
+                .expectNext("0x1", "0x2")
+                .verifyComplete();
     }
 
     /**
@@ -96,8 +95,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
 
         //don't change below this line
         StepVerifier.create(messages)
-                    .expectNext("0x1", "0x2", "0x3", "0x4")
-                    .verifyComplete();
+                .expectNext("0x1", "0x2", "0x3", "0x4")
+                .verifyComplete();
     }
 
     /**
@@ -112,9 +111,9 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
 
         //don't change below this line
         StepVerifier.create(messages)
-                    .expectNext("0x1", "0x2")
-                    .expectError(RuntimeException.class)
-                    .verify();
+                .expectNext("0x1", "0x2")
+                .expectError(RuntimeException.class)
+                .verify();
         Assertions.assertTrue(errorReported.get());
     }
 
@@ -134,9 +133,9 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                 );
 
         StepVerifier.create(taskFlux)
-                    .expectNextMatches(task -> task.executedExceptionally.get() && !task.executedSuccessfully.get())
-                    .expectNextMatches(task -> task.executedSuccessfully.get() && task.executedSuccessfully.get())
-                    .verifyComplete();
+                .expectNextMatches(task -> task.executedExceptionally.get() && !task.executedSuccessfully.get())
+                .expectNextMatches(task -> task.executedSuccessfully.get() && task.executedSuccessfully.get())
+                .verifyComplete();
     }
 
     /**
@@ -152,19 +151,19 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                 .onErrorContinue((throwable, o) -> System.out.println("Error reading file: " + throwable.getMessage()));
 
         StepVerifier.create(content)
-                    .expectNext("file1.txt content", "file3.txt content")
-                    .verifyComplete();
+                .expectNext("file1.txt content", "file3.txt content")
+                .verifyComplete();
     }
 
     /**
      * Quote from one of creators of Reactor: onErrorContinue is my billion-dollar mistake. `onErrorContinue` is
      * considered as a bad practice, its unsafe and should be avoided.
-     *
+     * <p>
      * {@see <a href="https://nurkiewicz.com/2021/08/onerrorcontinue-reactor.html">onErrorContinue</a>} {@see <a
      * href="https://devdojo.com/ketonemaniac/reactor-onerrorcontinue-vs-onerrorresume">onErrorContinue vs
      * onErrorResume</a>} {@see <a href="https://bsideup.github.io/posts/daily_reactive/where_is_my_exception/">Where is
      * my exception?</a>}
-     *
+     * <p>
      * Your task is to implement `onErrorContinue()` behaviour using `onErrorResume()` operator,
      * by using knowledge gained from previous lessons.
      */
@@ -174,13 +173,13 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
         Flux<String> content = getFilesContent()
                 .flatMap(file -> file
                         .doOnError(e -> System.out.println("Error occurred while reading file: " + e.getMessage()))
-                        .onErrorResume(e -> Mono.empty()));
+                        .onErrorResume(e -> Mono.just("skipped")));
 
 
         //don't change below this line
         StepVerifier.create(content)
-                    .expectNext("file1.txt content", "file3.txt content")
-                    .verifyComplete();
+                .expectNext("file1.txt content", "skipped", "file3.txt content")
+                .verifyComplete();
     }
 
     /**
@@ -194,8 +193,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                         .retry();
 
         StepVerifier.create(temperature)
-                    .expectNext(34)
-                    .verifyComplete();
+                .expectNext(34)
+                .verifyComplete();
     }
 
     /**
@@ -210,8 +209,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                 .retryWhen(Retry.backoff(3, Duration.ofSeconds(3)));
 
         StepVerifier.create(connection_result)
-                    .expectNext("connection_established")
-                    .verifyComplete();
+                .expectNext("connection_established")
+                .verifyComplete();
     }
 
     /**
