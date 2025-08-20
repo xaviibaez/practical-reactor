@@ -60,6 +60,12 @@ public class c12_Broadcasting extends BroadcastingBase {
      * Since two subscribers are interested in the updates, which are coming from same source, convert `updates` stream
      * to from cold to hot source.
      * Answer: What is the difference between hot and cold publisher? Why does won't .share() work in this case?
+     * The difference between hot and cold publisher is:
+     * cold publisher starts emitting items only when a subscriber subscribes to it,
+     * while hot publisher emits items regardless of whether there are subscribers or not.
+     *
+     * The `.share()` operator is used to convert a cold publisher into a hot one,
+     * but in this case, we need to ensure that the updates are shared among multiple subscribers, which requires a different approach.
      */
     @Test
     public void hot_vs_cold() {
